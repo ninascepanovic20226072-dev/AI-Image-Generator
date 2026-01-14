@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Image Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background-color:#000;
+      color:#fff;
+      font-family:'Open Sans', sans-serif;
+      text-align:center;
+      padding:20px;
+    }
+
+    /* Loader tekst */
+    #loaderText {
+      font-size:16px; /* sitnije */
+      font-weight:400;
+      margin-bottom:20px;
+    }
+
+    /* Twist i finalne recenice */
+    #twistText { display:none; font-size:16px; margin-bottom:20px; }
+    #finalText { margin-top:10px; font-size:16px; }
+    #finalText div { display:none; margin-bottom:10px; }
+
+    #restartBtn {
+      display:none;
+      margin-top:30px;
+      padding:10px 20px;
+      font-size:14px;
+      border:none;
+      border-radius:20px;
+      background-color:#00aaff;
+      color:#fff;
+      cursor:pointer;
+      transition:background-color 0.3s;
+    }
+    #restartBtn:hover { background-color:#006699; }
+  </style>
+</head>
+<body>
+
+  <div id="loaderText">Generating...</div>
+  <div id="twistText"></div>
+  <div id="finalText">
+    <div>No image was created.</div>
+    <div>Your choices were processed.</div>
+    <div>Authorship ended with your click.</div>
+  </div>
+
+  <button id="restartBtn" onclick="window.location.href='index.html'">RESTART</button>
+
+  <script>
+    const loaderSentences = [
+      "Your choices are being observed…",
+      "Your clicks are shaping the dataset…",
+      "Every interaction is recorded…",
+      "The algorithm learns from your attention…",
+      "Interaction replaces consent…"
+    ];
+
+    const loaderText = document.getElementById('loaderText');
+    const twistText = document.getElementById('twistText');
+    const finalTextDivs = document.querySelectorAll('#finalText div');
+    const restartBtn = document.getElementById('restartBtn');
+
+    // 1️⃣ Loader rotacija
+    let loaderIndex = 0;
+    const loaderInterval = setInterval(() => {
+      loaderText.textContent = loaderSentences[loaderIndex];
+      loaderIndex++;
+      if(loaderIndex >= loaderSentences.length){
+        clearInterval(loaderInterval);
+        startBlackScreen();
+      }
+    }, 4000); // 4s po recenici
+
+    // 2️⃣ Crni ekran 5s
+    function startBlackScreen(){
+      loaderText.style.display='none';
+      document.body.style.backgroundColor='#000';
+      setTimeout(showFinalSentences, 5000); // 5s crno
+    }
+
+    // 3️⃣ Prikaz finalnih recenica, ostaju na ekranu
+    function showFinalSentences(){
+      let i = 0;
+      function showNextSentence(){
+        if(i < finalTextDivs.length){
+          finalTextDivs[i].style.display = 'block';
+          i++;
+          setTimeout(showNextSentence, 3000); // 3s između recenica
+        } else {
+          // Nakon što se sve recenice pojave, nakon 3s prikazi dugme
+          setTimeout(() => {
+            restartBtn.style.display = 'inline-block';
+          }, 3000);
+        }
+      }
+      showNextSentence();
+    }
+  </script>
+
+</body>
+</html>
