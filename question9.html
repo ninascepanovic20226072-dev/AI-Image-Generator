@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Image Generator</title>
+
+  <!-- Google Fonts: Open Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px; /* malo manji tekst pitanja */
+      margin-bottom: 25px;
+      font-weight: 400; /* tanji tekst */
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      display: flex;
+      justify-content: center; /* centriramo tekst */
+      align-items: center;
+      font-size: 16px; /* još manji tekst opcija */
+      font-weight: 400;
+      background-color: #111;
+      padding: 10px 20px;
+      margin: 6px 0;
+      width: 220px;
+      height: 40px; /* fiksna visina kartice */
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      text-align: center;
+      user-select: none;
+    }
+
+    input[type="radio"] {
+      display: none; /* sakriveni kružići */
+    }
+
+    label:hover {
+      background-color: #222;
+    }
+
+    /* dugme NEXT */
+    #nextBtn {
+      display: none; /* skriveno dok se ne odabere opcija */
+      margin-top: 50px; /* spuštenije */
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 20px; /* 20px zaobljeno */
+      background-color: #00aaff;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #nextBtn:hover {
+      background-color: #006699;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Choose the lighting of your image:</h1>
+
+  <form id="styleForm">
+    <label>
+      <input type="radio" name="style" value="Realistic">
+      Bright
+    </label>
+    <label>
+      <input type="radio" name="style" value="Abstract">
+      Dark
+    </label>
+    <label>
+      <input type="radio" name="style" value="Surreal">
+      Natural
+    </label>
+    <label>
+      <input type="radio" name="style" value="Minimalist">
+      Spotlight
+    </label>
+    <label>
+      <input type="radio" name="style" value="Digital Painting">
+      Glow
+    </label>
+  </form>
+
+  <button id="nextBtn">NEXT</button>
+
+  <script>
+    const form = document.getElementById('styleForm');
+    const nextBtn = document.getElementById('nextBtn');
+    const labels = document.querySelectorAll('label');
+
+    // Dugme se pojavljuje tek kada se izabere opcija
+    form.addEventListener('change', (e) => {
+      nextBtn.style.display = 'inline-block';
+
+      // Reset svih labela na tamnu boju
+      labels.forEach(label => label.style.backgroundColor = '#111');
+
+      // Selektovana opcija svetlija
+      const selected = e.target;
+      if(selected.checked){
+        selected.parentElement.style.backgroundColor = '#222';
+      }
+    });
+
+    // Klik na NEXT vodi na question2.html
+    nextBtn.addEventListener('click', () => {
+      window.location.href = 'question10.html';
+    });
+  </script>
+
+</body>
+</html>
